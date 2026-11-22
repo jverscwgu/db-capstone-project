@@ -4,3 +4,4 @@
 littlelemon.mwb
 *.mwb.bak
 ~*.twbr
+.ipynb_checkpoints/
