@@ -69,7 +69,7 @@ CREATE TABLE `customers` (
 
 LOCK TABLES `customers` WRITE;
 /*!40000 ALTER TABLE `customers` DISABLE KEYS */;
-INSERT INTO `customers` VALUES (1,'Vanessa McCarthy','0757536378','vanessa.mccarthy@example.com'),(2,'Marcos Romero','0757536379','marcos.romero@example.com'),(3,'Hiroki Yamane','0757536376','hiroki.yamane@example.com'),(4,'Anna Iversen','0757536375','anna.iversen@example.com'),(5,'Diana Pinto','0757536374','diana.pinto@example.com');
+INSERT INTO `customers` VALUES (1,'Vanessa McCarthy','0757536378','vanessa.mccarthy@example.com'),(2,'Marcos Romero','0757536379','marcos.romero@example.com'),(3,'Hiroki Yamane','0757536376','hiroki.yamane@example.com'),(4,'Anna Iversen','0757536375','anna.iversen@example.com'),(5,'Diana Pinto','0757536374','diana.pinto@example.com'),(99,'Walk-in Guest','0000000000','guest@example.com');
 /*!40000 ALTER TABLE `customers` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -249,8 +249,8 @@ DELIMITER ;;
 CREATE DEFINER=`root`@`localhost` PROCEDURE `AddBooking`(
   IN p_BookingID   INT,
   IN p_CustomerID  INT,
-  IN p_BookingDate DATE,
-  IN p_TableNumber INT
+  IN p_TableNumber INT,
+  IN p_BookingDate DATE
 )
 BEGIN
   INSERT INTO Bookings (BookingID, BookingDate, TableNumber, CustomerID)
@@ -411,14 +411,20 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `ManageBooking`(IN p_BookingDate DAT
 BEGIN
   DECLARE v_Booked INT DEFAULT 0;
 
+  START TRANSACTION;
+
   SELECT COUNT(*) INTO v_Booked
   FROM Bookings
   WHERE BookingDate = p_BookingDate AND TableNumber = p_TableNumber;
 
   IF v_Booked > 0 THEN
-    SELECT CONCAT('Table ', p_TableNumber, ' is already booked') AS `Booking status`;
+    ROLLBACK;
+    SELECT CONCAT('Table ', p_TableNumber, ' is already booked - booking cancelled') AS `Booking status`;
   ELSE
-    SELECT CONCAT('Table ', p_TableNumber, ' is available') AS `Booking status`;
+    INSERT INTO Bookings (BookingDate, TableNumber, CustomerID)
+    VALUES (p_BookingDate, p_TableNumber, 1);
+    COMMIT;
+    SELECT CONCAT('Table ', p_TableNumber, ' booked for ', p_BookingDate) AS `Booking status`;
   END IF;
 END ;;
 DELIMITER ;

@@ -57,11 +57,12 @@ it:
 - The sample data has a customer with id 99, because the rubric adds a booking
   for customer 99 and `Bookings` has a foreign key to `Customers`.
 
-The screenshots `06_manage_booking.png` and `06_task1_add_booking.png`, the
-notebook output for `ManageBooking` and the export `LittleLemonDB.sql` were
-made before this change and still show the first version. The scripts
-`06_manage_booking.sql`, `06_task1_add_booking.sql` and `02_data.sql` are the
-current ones.
+The scripts `06_manage_booking.sql`, `06_task1_add_booking.sql` and
+`02_data.sql` have the current versions. The export `LittleLemonDB.sql` was
+updated by hand with the same three changes, so loading it gives the current
+procedures and customer 99. The screenshots `06_manage_booking.png` and
+`06_task1_add_booking.png` and the notebook output for `ManageBooking` were
+made before this change and still show the first version.
 
 ## Running it
 
