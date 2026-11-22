@@ -49,7 +49,8 @@ that lists the orders of one customer.
 3. Run the numbered scripts in order. Each one ends with an example call.
 
 The Python notebook connects as the database user `littlelemon`, which exists
-only on the local server for this project.
+only on the local server for this project. It lists the tables, runs a join
+query and calls `GetMaxQuantity` and `ManageBooking`.
 
 ## Tableau
 
