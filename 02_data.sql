@@ -8,7 +8,8 @@ INSERT INTO Customers (CustomerID, FullName, ContactNumber, Email) VALUES
   (2, 'Marcos Romero',    '0757536379', 'marcos.romero@example.com'),
   (3, 'Hiroki Yamane',    '0757536376', 'hiroki.yamane@example.com'),
   (4, 'Anna Iversen',     '0757536375', 'anna.iversen@example.com'),
-  (5, 'Diana Pinto',      '0757536374', 'diana.pinto@example.com');
+  (5, 'Diana Pinto',      '0757536374', 'diana.pinto@example.com'),
+  (99, 'Walk-in Guest',   '0000000000', 'guest@example.com');
 
 INSERT INTO Staff (StaffID, FullName, Role, Salary) VALUES
   (1, 'Mario Gollini',   'Manager',    70000.00),
